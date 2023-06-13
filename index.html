@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="main.js" defer></script>
     <title>Taschenrechner</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div id="zahl">0</div>
+      <div id="zahl"></div>
 
-        <div class="row">
-            <button id="eins" class="btn" data-value="1">1</button>
-            <button id="zwei" class="btn" data-value="2">2</button>
-            <button id="drei" class="btn" data-value="3">3</button>
-            <button id="plus" class="btn" data-action="+">+</button>
-        </div>
+      <div class="row">
+        <button id="eins" class="btn" data-value="1">1</button>
+        <button id="zwei" class="btn" data-value="2">2</button>
+        <button id="drei" class="btn" data-value="3">3</button>
+        <button id="plus" class="btn" data-action="+">+</button>
+      </div>
 
-        <div class="row">
-            <button id="vier" class="btn" data-value="4">4</button>
-            <button id="fünf" class="btn" data-value="5">5</button>
-            <button id="sechs" class="btn" data-value="6">6</button>
-            <button id="minus" class="btn" data-action="-">-</button>
-        </div>
+      <div class="row">
+        <button id="vier" class="btn" data-value="4">4</button>
+        <button id="fünf" class="btn" data-value="5">5</button>
+        <button id="sechs" class="btn" data-value="6">6</button>
+        <button id="minus" class="btn" data-action="-">-</button>
+      </div>
 
-        <div class="row">
-            <button id="sieben" class="btn" data-value="7">7</button>
-            <button id="acht" class="btn" data-value="8">8</button>
-            <button id="neun" class="btn" data-value="9">9</button>
-            <button id="multiplizieren" class="btn" data-action="*">x</button>
-        </div>
+      <div class="row">
+        <button id="sieben" class="btn" data-value="7">7</button>
+        <button id="acht" class="btn" data-value="8">8</button>
+        <button id="neun" class="btn" data-value="9">9</button>
+        <button id="multiplizieren" class="btn" data-action="*">x</button>
+      </div>
 
-        <div class="row">
-            <button id="clear" class="btn" data-action="clear">AC</button>
-            <button id="komma" class="btn" data-action=".">.</button>
-            <button id="null" class="btn" data-value="0">0</button>
-            <button id="dividieren" class="btn" data-action="/">/</button>
-        </div>
+      <div class="row">
+        <button id="clear" class="btn" data-action="clear">AC</button>
+        <button id="komma" class="btn" data-action=".">.</button>
+        <button id="null" class="btn" data-value="0">0</button>
+        <button id="dividieren" class="btn" data-action="/">/</button>
+      </div>
 
-        <button id="ergebnis" data-action="=">=</button>
+      <button id="ergebnis" data-action="=">=</button>
     </div>
-</body>
-
+  </body>
 </html>

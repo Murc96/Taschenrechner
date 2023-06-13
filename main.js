@@ -1,11 +1,21 @@
 const keys = document.querySelector(".container");
 let anzeige = document.querySelector("#zahl");
 let aktuelleEingabe = "";
+let zahl1 = "";
+let zahl2 = "";
+let ergebnis = "";
 
 function calculate(action) {
   if (action === "+") {
+    ergebnis = zahl1 + zahl2;
+    showNumber(ergebnis);
   } else if (action === "-") {
-    console.log("subtrahieren");
+    ergebnis = zahl1 - zahl2;
+    console.log(ergebnis);
+  } else if (action === "*") {
+    ergebnis = zahl1 * zahl2;
+  } else if (action === "/") {
+    ergebnis = zahl1 / zahl2;
   }
 }
 
@@ -14,13 +24,21 @@ function showNumber(eingabe) {
   anzeige.innerHTML = aktuelleEingabe;
 }
 
+function saveNumber(action, zahl) {
+  if (zahl1 === "") {
+    zahl1 = parseInt(aktuelleEingabe);
+    aktuelleEingabe = "";
+  } else if (zahl1 >= 0) {
+    zahl2 = parseInt(aktuelleEingabe);
+    aktuelleEingabe = "";
+  } else if (zahl1 >= 0 && zahl2 >= 0) {
+    calculate(action);
+  }
+}
+
 function clear() {
   anzeige.innerHTML = 0;
   aktuelleEingabe = "";
-}
-
-function decimal() {
-  console.log("decimal");
 }
 
 function listenToKeys() {
@@ -40,12 +58,12 @@ function listenToKeys() {
       action === "/" ||
       action === "="
     ) {
-      showNumber(action);
+      saveNumber(action, aktuelleEingabe);
       calculate(action);
     }
 
     if (action === ".") {
-      console.log("der dezimalpunkt wurde geklickt");
+      showNumber(action);
     }
 
     if (action === "clear") {
