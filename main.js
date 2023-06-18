@@ -1,54 +1,79 @@
 const keys = document.querySelector(".container");
-let anzeige = document.querySelector("#zahl");
-let aktuelleEingabe = "";
-let zahl1 = "";
-let zahl2 = "";
-let ergebnis = "";
+let display = document.querySelector("#display");
+let aktuelleEingabe = null;
+let zahl1 = 0;
+let wartenZahl2 = false;
+let operator = null;
 
-function calculate(action) {
+function calculate(action, zahl1, zahl2) {
   if (action === "+") {
-    ergebnis = zahl1 + zahl2;
-    showNumber(ergebnis);
+    return zahl1 + zahl2;
   } else if (action === "-") {
-    ergebnis = zahl1 - zahl2;
-    console.log(ergebnis);
+    return zahl1 - zahl2;
   } else if (action === "*") {
-    ergebnis = zahl1 * zahl2;
+    return zahl1 * zahl2;
   } else if (action === "/") {
-    ergebnis = zahl1 / zahl2;
+    return zahl1 / zahl2;
+  }
+
+  return ergebnis;
+}
+
+function updateDisplay() {
+  display.textContent = aktuelleEingabe;
+}
+
+function handleDecimal() {
+  if (wartenZahl2 === false && aktuelleEingabe === null) {
+    aktuelleEingabe = "0.";
+    return;
+  }
+  if (!aktuelleEingabe.includes(".")) {
+    aktuelleEingabe += ".";
   }
 }
 
-function showNumber(eingabe) {
-  aktuelleEingabe += eingabe;
-  anzeige.innerHTML = aktuelleEingabe;
+function handleOperator(currentOperator) {
+  if (zahl1 === 0) {
+    zahl1 = parseFloat(aktuelleEingabe);
+  } else if (operator) {
+    let ergebnis = calculate(operator, zahl1, parseFloat(aktuelleEingabe));
+    aktuelleEingabe = parseFloat(ergebnis);
+    zahl1 = parseFloat(ergebnis);
+  }
+
+  wartenZahl2 = true;
+  operator = currentOperator;
 }
 
-function saveNumber(action, zahl) {
-  if (zahl1 === "") {
-    zahl1 = parseInt(aktuelleEingabe);
-    aktuelleEingabe = "";
-  } else if (zahl1 >= 0) {
-    zahl2 = parseInt(aktuelleEingabe);
-    aktuelleEingabe = "";
-  } else if (zahl1 >= 0 && zahl2 >= 0) {
-    calculate(action);
+function inputDigits(eingabe) {
+  if (wartenZahl2) {
+    aktuelleEingabe = eingabe;
+    wartenZahl2 = false;
+  } else {
+    aktuelleEingabe =
+      aktuelleEingabe === null
+        ? (aktuelleEingabe = eingabe)
+        : (aktuelleEingabe += eingabe);
   }
 }
 
 function clear() {
-  anzeige.innerHTML = 0;
-  aktuelleEingabe = "";
+  display.textContent = 0;
+  aktuelleEingabe = null;
+  zahl1 = 0;
+  operator = null;
 }
 
 function listenToKeys() {
   keys.addEventListener("click", (e) => {
     let key = e.target;
     let action = key.dataset.action;
-    let zahl = parseInt(key.dataset.value);
+    let zahl = key.dataset.value;
 
     if (!action) {
-      showNumber(zahl);
+      inputDigits(zahl);
+      updateDisplay();
     }
 
     if (
@@ -58,12 +83,12 @@ function listenToKeys() {
       action === "/" ||
       action === "="
     ) {
-      saveNumber(action, aktuelleEingabe);
-      calculate(action);
+      handleOperator(action);
+      updateDisplay();
     }
 
     if (action === ".") {
-      showNumber(action);
+      handleDecimal();
     }
 
     if (action === "clear") {
